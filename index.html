@@ -26,6 +26,7 @@
                 <h2 class="subtitle">
                   Save events for each hour of the day.
                   <div id = 'currentDate'></div>
+                  <div id = 'currentTime'></div>
                 </h2>
               </div>
             </div>
@@ -41,8 +42,8 @@
                     </tr>
                   </thead>
                 <tbody>
-                    <tr>
-                        <th id = 'time'>9AM</th>
+                    <tr id ="calendarIterate">
+                        <th id = 'time'>9</th>
                         <th id = 'content'>Content</th>
                         <th id = 'saveBtn' class = 'is-right'><button>Save Button</button></th>
                     </tr>
@@ -52,7 +53,7 @@
     </div>
     
 
-
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="assets/moment.js"></script>
 <script src = "assets/functions.js"></script>
 <script>
