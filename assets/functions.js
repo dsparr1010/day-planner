@@ -5,32 +5,28 @@ $('#currentTime').text(moment().format('h:mm a'));
 //9 am - 5 pm
 let hoursArray = [9, 10, 11, 12, 13, 14, 15, 16, 17];
 
+var storage = JSON.parse(localStorage.getItem('storage')) || []
+
 function renderTable() {
 
     hoursArray.forEach((hr) => {
         const row = $(`<tr id = 'row${hr}'><th scope = 'row'>${hr}</th>`);
         const time = $(`<td id = 'time${hr}' class = 'cal-time'>${hr} O'Clock</td>`);
-        const content = $(`<td id = 'content${hr}' 'class = 'cal-content' colspan = '4'><input id = 'input${hr} type = 'text' >What do you have planned?</input></td`);
-        const saveBtn = $(`<td id = 'saveBtn${hr}' class = 'cal-saveBtn is-right'><button for = 'input${hr}'>Save Button</button></td></tr>`);
+        const content = 
+        $(`<div class="input-group">
+            <div class="input-group-prepend">
+                <button class ="input-group-text" id = 'saveBtn${hr}' class = 'cal-saveBtn is-right' >Save content</button>
+            </div>
+                <textarea id = 'input${hr}' class="form-control" aria-label="Content"></textarea>
+            </div>
+        </tr>`);
         const br = $('<br>');
 
-        var inputID = $(`#input${hr}`).val();
-        var input = $(`#input${hr}`);
-        var btnInput = $(':button');
-
-    row.append(time, content, saveBtn, br)
+    row.append(time, content, br);
     $('#calendarIterate').append(row);
 
-
-    $(`#saveBtn${hr}`).on('click', () => {
-       // data.push(localStore);
-       // localStorage.setItem('data', JSON.stringify(data));   
-        console.log(`this btn: saveBtn${hr}`);
-    });
-
-
-
     setStyle(hr);
+    saveData(hr);
 
     });
     
@@ -51,17 +47,28 @@ function setStyle(hr) {
 
 };
 
-var data = JSON.parse(localStorage.getItem('data')) || [];
+function saveData(hr) {
+    $(`#saveBtn${hr}`).on('click', () => {
+         console.log(`this btn: saveBtn${hr}`);
+        const userInput = ($(`#input${hr}`).val());
+        console.log(userInput);
+        const inputBtn = ($(`#saveBtn${hr}`)[0].id);
+        console.log(inputBtn);
+
+        let dataObj = {
+            userContent : userInput,
+            btnId : inputBtn
+        }
+
+        storage.push(dataObj);
+        localStorage.setItem('storage', JSON.stringify(storage));
+
+        console.log(dataObj);
+    });
+
+    
+};
 
 renderTable();
 
 }); //end doc ready func
-
-
-$(window).on('load', function() {
-const currentTime = moment().format('HH:mm');
-const currentDay = moment().format('dddd,  MMMM Do YYYY');
-
-console.log(currentTime);  
-console.log(currentDay);
-});
