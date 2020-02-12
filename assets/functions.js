@@ -43,17 +43,16 @@ function setStyle(hr) {
 
     } else {
         $(`#row${hr}`).addClass('table-light');
-    }
+    };
+
+
 
 };
 
 function saveData(hr) {
     $(`#saveBtn${hr}`).on('click', () => {
-         console.log(`this btn: saveBtn${hr}`);
         const userInput = ($(`#input${hr}`).val());
-        console.log(userInput);
         const inputBtn = ($(`#saveBtn${hr}`)[0].id);
-        console.log(inputBtn);
 
         let dataObj = {
             userContent : userInput,
@@ -63,9 +62,10 @@ function saveData(hr) {
         storage.push(dataObj);
         localStorage.setItem('storage', JSON.stringify(storage));
 
-        console.log(dataObj);
-    });
-
+       if (storage) {
+        $(`input${hr}`).text(dataObj.userContent);
+    }
+ });
     
 };
 
